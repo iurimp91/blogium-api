@@ -6,7 +6,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-const posts = [
+let posts = [
     {
         id: 1,
         title: 'Hello World',
@@ -57,18 +57,25 @@ server.post("/posts", (req, res) => {
         coverUrl,
         contentPreview: newContent,
         content: newContent,
-        comments: 0
+        commentCount: 0
     }
     posts.push(post);
     res.send("Post adicionado com sucesso!");
 });
 
 server.post(`/posts/:id/comments`, (req, res) => {
+    const postId = parseInt(req.params.id);
+    posts.forEach((post) => {
+        if(postId === post.id) {
+            post.commentCount++;
+        }
+    });
+
+    console.log(posts);
     const comment = req.body;
     comment.id = 3;
-    console.log(comment);
     comments.push(comment);
-    console.log(comments);
+
     res.send("Comentário adicionado com sucesso!");
 });
 
