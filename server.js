@@ -52,7 +52,7 @@ server.post("/posts", (req, res) => {
     const { title, coverUrl, content } = req.body;
     const newContent = content.replace('<p>', '').replace('</p>', '');
     const post = {
-        id: 2,
+        id: Math.floor(Math.random() * 21), //VER SE FICA ASSIM
         title,
         coverUrl,
         contentPreview: newContent,
@@ -60,6 +60,7 @@ server.post("/posts", (req, res) => {
         commentCount: 0
     }
     posts.push(post);
+    console.log(posts);
     res.send("Post adicionado com sucesso!");
 });
 
@@ -71,10 +72,10 @@ server.post(`/posts/:id/comments`, (req, res) => {
         }
     });
 
-    console.log(posts);
     const comment = req.body;
-    comment.id = 3;
+    comment.id = Math.floor(Math.random() * 21); //VER SE FICA ASSIM
     comments.push(comment);
+    console.log(comments);
 
     res.send("Comentário adicionado com sucesso!");
 });
